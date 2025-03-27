@@ -165,7 +165,7 @@ Ovo će izgraditi Docker image za svaki mikroservis (na osnovu njihovih Dockerfi
   "email": "marko@example.com"
   }
 
--Login (preko API Gateway-ja)
+- Login (preko API Gateway-ja)
  
   POST http://localhost:8080/auth/login
   {
