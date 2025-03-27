@@ -1,0 +1,108 @@
+version: '3.8'
+
+networks:
+  platecycle-network:
+    driver: bridge
+
+services:
+  naming-server:
+    build:
+      context: ./NamingServer
+      dockerfile: Dockerfile
+    container_name: naming-server
+    ports:
+      - "8761:8761"
+    networks:
+      - platecycle-network
+
+  user-service:
+    build:
+      context: ./UserService
+      dockerfile: Dockerfile
+    container_name: user-service
+    ports:
+      - "8081:8081"
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://naming-server:8761/eureka"
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://host.docker.internal:5432/user_db"
+      SPRING_DATASOURCE_USERNAME:
+      SPRING_DATASOURCE_PASSWORD:
+    depends_on:
+      - naming-server
+    restart: on-failure
+    networks:
+      - platecycle-network
+
+  product-service:
+    build:
+      context: ./ProductService
+      dockerfile: Dockerfile
+    container_name: product-service
+    ports:
+      - "8082:8082"
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://naming-server:8761/eureka"
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://host.docker.internal:5432/product_db"
+      SPRING_DATASOURCE_USERNAME:
+      SPRING_DATASOURCE_PASSWORD:
+    depends_on:
+      - naming-server
+    restart: on-failure
+    networks:
+      - platecycle-network
+
+  reservations-service:
+    build:
+      context: ./ReservationsService
+      dockerfile: Dockerfile
+    container_name: reservations-service
+    ports:
+      - "8083:8083"
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://naming-server:8761/eureka"
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://host.docker.internal:5432/reservations_db"
+      SPRING_DATASOURCE_USERNAME:
+      SPRING_DATASOURCE_PASSWORD:
+    depends_on:
+      - naming-server
+    restart: on-failure
+    networks:
+      - platecycle-network
+
+  pickup-service:
+    build:
+      context: ./PickupService
+      dockerfile: Dockerfile
+    container_name: pickup-service
+    ports:
+      - "8084:8084"
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://naming-server:8761/eureka"
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://host.docker.internal:5432/pickup_db"
+      SPRING_DATASOURCE_USERNAME:
+      SPRING_DATASOURCE_PASSWORD:
+    depends_on:
+      - naming-server
+    restart: on-failure
+    networks:
+      - platecycle-network
+
+  api-gateway:
+    build:
+      context: ./ApiGateway
+      dockerfile: Dockerfile
+    container_name: api-gateway
+    ports:
+      - "8080:8080"
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://naming-server:8761/eureka"
+    depends_on:
+      - naming-server
+      - user-service
+      - product-service
+      - reservations-service
+      - pickup-service
+    restart: on-failure
+    command: ["sh", "-c", "sleep 30 && java -jar /app/api-gateway.jar"]
+    networks:
+      - platecycle-network

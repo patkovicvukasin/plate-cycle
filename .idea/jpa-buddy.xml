@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JpaBuddyIdeaProjectConfig">
+    <option name="defaultUnitInitialized" value="true" />
+    <option name="renamerInitialized" value="true" />
+    <option name="reverseEngineeringLastDbConnectionId" value="304bad7c-30b0-404c-92da-843de6b93157__pickup_db_public" />
+    <option name="reLastEntityCreationPackage" value="PickupService/src/main/java/com/platecycle/pickupservice/model" />
+  </component>
+</project>

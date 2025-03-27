@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- 1) Ovde umesto org.springframework.boot:starter-parent
+            postavljamo parent na TVOJ platecycle-parent projekat -->
+    <parent>
+        <groupId>com.platecycle</groupId>
+        <artifactId>platecycle-parent</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <!-- relativePath neka pokazuje gde se nalazi parent pom.xml
+             (npr. ../pom.xml ako je config-server folder
+             unutar root-a gde je platecycle-parent/pom.xml) -->
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <!-- 2) Identifikator ovog modula -->
+    <groupId>com.platecycle</groupId>
+    <artifactId>config-server</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>ConfigServer</name>
+    <description>ConfigServer</description>
+
+    <!-- Ako želiš izričito da koristiš Java 21,
+         možeš to navesti ovde, ali
+         ako si već stavio <java.version>21</java.version> u parentu,
+         nije obavezno opet navoditi. -->
+
+    <dependencies>
+
+        <!-- Ova zavisnost omogućava da aplikacija radi kao Config Server -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-config-server</artifactId>
+        </dependency>
+
+        <!-- Ako želiš da imaš klasične REST endpoint-e ili health-check,
+             stavi i Spring Web -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- Test (opcionalno) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <!-- 3) Ne treba ti <dependencyManagement> ovde, jer ga već imaš u parentu.
+         Ako si planirao da u parentu imaš i Spring Cloud BOM,
+         sve će se nasleđivati dole.
+         Brišemo nepotrebno <dependencyManagement> iz child-a. -->
+
+    <build>
+        <plugins>
+            <!-- Ova definicija se takođe najčešće nasleđuje iz parent-a,
+                 ali IntelliJ je često automatski ostavi. Nije loše ni ovde. -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>

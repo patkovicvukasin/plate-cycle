@@ -1,0 +1,4 @@
+CREATE DATABASE userdb;
+CREATE DATABASE productdb;
+CREATE DATABASE reservationdb;
+CREATE DATABASE pickupdb;
