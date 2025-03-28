@@ -198,4 +198,12 @@ Ovo će izgraditi Docker image za svaki mikroservis (na osnovu njihovih Dockerfi
 
 
 
+## Autor
+
+- Ime: [Vukašin Patković]
+- GitHub: [https://github.com/patkovicvukasin]
+- Email: [vukasinpatkovic@gmail.com]
+
+
+
 
