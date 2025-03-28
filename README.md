@@ -1,6 +1,6 @@
 # PlateCycle
 
-**PlateCycle** je aplikacija zasnovana na mikroservisnoj arhitekturi, koja omogućava doniranje i rezervaciju hrane pred istekom roka ili viškova hrane. Projekat je razvijen u sklopu vežbe za rad sa Spring Cloud tehnologijama, Dockerom i distribuiranim sistemima.
+**PlateCycle** je aplikacija zasnovana na mikroservisnoj arhitekturi, koja omogućava doniranje viška hrane ili hrane pred istekom roka. Projekat je razvijen sa Spring Cloud tehnologijama, Dockerom i distribuiranim sistemima.
 
 ## Sadržaj
 
@@ -18,12 +18,10 @@
 
 ## Pregled projekta
 
-**PlateCycle** omogućava dva tipa korisnika:
-- **Donor**: Postavlja oglase za hranu (naziv, opis, količina, rok trajanja...). Može da označi da li sam vrši dostavu.
-- **Korisnik (User)**: Pregleda dostupne oglase i rezerviše željenu hranu. Može izabrati da li će sam preuzeti hranu ili želi dostavu.
-
-Ako korisnik želi dostavu, a donor ne vrši dostavu, automatski se kreira zahtev za dostavu kroz **PickupService**.  
-U pozadini, sistem je organizovan kao set nezavisnih mikroservisa, koji komuniciraju preko **Feign** klijenata i koriste **Spring Cloud** komponente kao što su Eureka Naming Server i API Gateway.
+**PlateCycle** je aplikacija koja povezuje korisnike i donore hrane putem mikroservisne arhitekture. Aplikacija omogućava:
+- Donorima da kreiraju oglase sa detaljima o hrani, uključujući naziv, opis, količinu, rok trajanja i opciju dostave.
+- Korisnicima (User) da pregledaju dostupne oglase i rezervišu hranu na način koji im najviše odgovara – bilo da preuzimaju hranu lično ili zahtevaju dostavu.
+U pozadini, aplikacija se oslanja na niz nezavisnih mikroservisa koji komuniciraju preko **Feign** klijenata, dok se integracija i sigurnost ostvaruju putem Spring Cloud komponenti, kao što su **Eureka** Naming Server i **API Gateway**.
 
 ---
 
@@ -41,7 +39,7 @@ U pozadini, sistem je organizovan kao set nezavisnih mikroservisa, koji komunici
 
 ## Arhitektura
 
-U aplikaciji postoji 6 glavnih komponenti:
+U aplikaciji postoji 7 glavnih komponenti:
 
 1. **UserService**  
 2. **ProductService**  
@@ -49,7 +47,7 @@ U aplikaciji postoji 6 glavnih komponenti:
 4. **PickupService**  
 5. **API Gateway**  
 6. **NamingServer (Eureka)**  
-7. (opciono) **ConfigServer** – trenutno ne sadrži kompleksnu konfiguraciju, ali je spreman za buduću upotrebu.
+7. **ConfigServer** – trenutno ne sadrži kompleksnu konfiguraciju, ali je spreman za buduću upotrebu.
 
 Svi servisi su registrovani na **Eureka Naming Server**. 
 API Gateway služi kao “ulazna tačka” u sistem i sadrži logiku za autentifikaciju i autorizaciju (JWT). 
