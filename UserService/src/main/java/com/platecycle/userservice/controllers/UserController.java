@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/users")
@@ -29,7 +28,6 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    // LOGIN – vraća DTO odgovora (ili ceo User objekat, ali preporučujemo DTO)
     @PostMapping("/login")
     public ResponseEntity<UserResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
         User user = userService.loginUser(loginRequest.getUsername(), loginRequest.getPassword());
@@ -37,7 +35,6 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
-    // --- VALIDATE (za gateway Feign poziv) ---
     @GetMapping("/validate-credentials")
     public ResponseEntity<?> validateCredentials(
             @RequestParam String username,
@@ -50,9 +47,8 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("INVALID");
     }
 
-    // --- Ostale metode samo primer ---
     @GetMapping("/{id}")
-    public User getUser(@PathVariable UUID id) {
+    public User getUser(@PathVariable Long id) {
         return userService.getUser(id);
     }
 
@@ -62,13 +58,13 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable UUID id) {
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}/reset-password")
-    public ResponseEntity<User> resetPassword(@PathVariable UUID id,
+    public ResponseEntity<User> resetPassword(@PathVariable Long id,
                                               @RequestBody ResetPasswordRequest request) {
         User updatedUser = userService.resetPassword(id, request.getNewPassword());
         return ResponseEntity.ok(updatedUser);

@@ -23,7 +23,6 @@ public class JwtAuthenticationFilter implements WebFilter {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
         String path = exchange.getRequest().getURI().getPath();
-        // Preskoči autentifikaciju za /auth/** endpoint-e
         if (path.startsWith("/auth")) {
             return chain.filter(exchange);
         }

@@ -8,7 +8,6 @@ public class UserResponse {
     private String lastName;
     private String userType;
 
-    // Getteri i setteri
     public String getId() {
         return id;
     }

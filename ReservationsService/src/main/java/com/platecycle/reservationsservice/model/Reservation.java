@@ -4,23 +4,23 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.Instant;
-import java.util.UUID;
 
 @Entity
 @Table(name = "reservations")
 public class Reservation {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private UUID id;
+    private Long id;
 
     @NotNull
     @Column(name = "product_id", nullable = false)
-    private UUID productId;
+    private Long productId;
 
     @NotNull
     @Column(name = "recipient_id", nullable = false)
-    private UUID recipientId;
+    private Long recipientId;
 
     @NotNull
     @Column(name = "created_at", nullable = false)
@@ -40,26 +40,24 @@ public class Reservation {
     @Column(name = "pickup_option", nullable = false, length = 20)
     private PickupOption pickupOption;
 
-    // Getteri i Setteri
-
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public UUID getProductId() {
+    public Long getProductId() {
         return productId;
     }
-    public void setProductId(UUID productId) {
+    public void setProductId(Long productId) {
         this.productId = productId;
     }
 
-    public UUID getRecipientId() {
+    public Long getRecipientId() {
         return recipientId;
     }
-    public void setRecipientId(UUID recipientId) {
+    public void setRecipientId(Long recipientId) {
         this.recipientId = recipientId;
     }
     public Instant getCreatedAt() {

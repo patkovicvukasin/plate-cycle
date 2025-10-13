@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class UserService {
@@ -23,7 +22,6 @@ public class UserService {
     private UserRepository userRepository;
 
     public User registerUser(RegisterRequest registerRequest) {
-        // Provera da li email ili username već postoje
         if (userRepository.existsByEmail(registerRequest.getEmail())) {
             throw new DuplicateEmailException("Email taken: " + registerRequest.getEmail());
         }
@@ -32,29 +30,23 @@ public class UserService {
         }
 
         User user = new User();
-
-        // Mapiramo podatke iz DTO-ja u entitet
         user.setUsername(registerRequest.getUsername());
         user.setEmail(registerRequest.getEmail());
-        user.setPassword(registerRequest.getPassword());  // U produkciji uvek enkriptuj lozinku!
+        user.setPassword(registerRequest.getPassword());
         user.setFirstName(registerRequest.getFirstName());
         user.setLastName(registerRequest.getLastName());
 
-        // Provera korisničkog tipa – ako je ADMIN, registracija se ne dozvoljava
         UserType requestedType = UserType.valueOf(registerRequest.getUserType().toUpperCase());
         if (requestedType == UserType.ADMIN) {
             throw new IllegalArgumentException("Registration as ADMIN is not allowed.");
         }
         user.setUserType(requestedType);
 
-        // Postavljanje ostalih polja
-        user.setId(UUID.randomUUID());
         user.setCreatedAt(Instant.now());
         user.setUpdatedAt(Instant.now());
 
         return userRepository.save(user);
     }
-
 
     public User loginUser(String username, String password) {
         Optional<User> optionalUser = userRepository.findByUsername(username);
@@ -65,7 +57,6 @@ public class UserService {
         return user;
     }
 
-    // Metoda za mapiranje entiteta u DTO
     public UserResponse mapToResponse(User user) {
         UserResponse dto = new UserResponse();
         dto.setId(user.getId().toString());
@@ -83,7 +74,7 @@ public class UserService {
         return user.getPassword().equals(password);
     }
 
-    public User getUser(UUID userId) {
+    public User getUser(Long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("User not found: " + userId));
     }
@@ -92,14 +83,14 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public void deleteUser(UUID userId) {
+    public void deleteUser(Long userId) {
         if (!userRepository.existsById(userId)) {
             throw new UserNotFoundException("User not found: " + userId);
         }
         userRepository.deleteById(userId);
     }
 
-    public User resetPassword(UUID userId, String newPassword) {
+    public User resetPassword(Long userId, String newPassword) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("User not found: " + userId));
         user.setPassword(newPassword);

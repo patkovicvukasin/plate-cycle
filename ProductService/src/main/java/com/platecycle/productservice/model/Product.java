@@ -3,30 +3,23 @@ package com.platecycle.productservice.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import org.hibernate.annotations.GenericGenerator;
-
 import java.time.Instant;
-import java.util.UUID;
 
 @Entity
-@Table(name = "products", schema = "public")
+@Table(name = "products")
 public class Product {
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, updatable = false)
-    private UUID id;
+    private Long id;
 
     @Size(max = 100)
     @NotNull
     @Column(name = "title", nullable = false, length = 100)
     private String title;
 
-    @Column(name = "description", length = Integer.MAX_VALUE)
+    @Column(name = "description", length = 500)
     private String description;
 
     @Column(name = "expiration_date")
@@ -44,19 +37,13 @@ public class Product {
     @Column(name = "city", nullable = false, length = 100)
     private String city;
 
-
     @NotNull
-    @Column(name = "self_delivery", nullable = false)
-    private Boolean selfDelivery;
+    @Column(name = "delivery_included", nullable = false)
+    private boolean deliveryIncluded;
 
     @NotNull
     @Column(name = "donor_id", nullable = false)
-    private UUID donorId;
-
-    @Size(max = 20)
-    @NotNull
-    @Column(name = "delivery_option", nullable = false, length = 20)
-    private String deliveryOption;
+    private Long donorId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
@@ -70,12 +57,10 @@ public class Product {
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
 
-    // Getteri i Setteri
-
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -117,32 +102,19 @@ public class Product {
 
     public void setCity(String city) { this.city = city;}
 
-    public Boolean getSelfDelivery() {
-        return selfDelivery;
+    public Boolean getDeliveryIncluded() {
+        return deliveryIncluded;
     }
 
-    public void setSelfDelivery(Boolean selfDelivery) {
-        this.selfDelivery = selfDelivery;
+    public void setDeliveryIncluded(Boolean deliveryIncluded) {
+        this.deliveryIncluded = deliveryIncluded;
     }
 
-    public UUID getDonorId() {
+    public Long getDonorId() {
         return donorId;
     }
-    public void setDonorId(UUID donorId) {
+    public void setDonorId(Long donorId) {
         this.donorId = donorId;
-    }
-
-    public String getDeliveryOption() {
-        return deliveryOption;
-    }
-    public void setDeliveryOption(String deliveryOption) {
-        this.deliveryOption = deliveryOption;
-        // Ako je deliveryOption "SELF_DELIVERY", postavi selfDelivery na true, inače na false.
-        if ("SELF_DELIVERY".equalsIgnoreCase(deliveryOption)) {
-            this.selfDelivery = true;
-        } else if ("NO_DELIVERY".equalsIgnoreCase(deliveryOption)) {
-            this.selfDelivery = false;
-        }
     }
 
     public Category getCategory() {
@@ -165,7 +137,4 @@ public class Product {
     public void setUpdatedAt(Instant updatedAt) {
         this.updatedAt = updatedAt;
     }
-
-
-
 }

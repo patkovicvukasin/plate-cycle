@@ -6,7 +6,6 @@ import org.hibernate.Hibernate;
 
 import java.io.Serializable;
 import java.util.Objects;
-import java.util.UUID;
 
 
 @Embeddable
@@ -14,11 +13,11 @@ public class UserRoleId implements Serializable {
     private static final long serialVersionUID = 533739441531982061L;
     @javax.validation.constraints.NotNull
     @Column(name = "user_id", nullable = false)
-    private UUID userId;
+    private Long userId;
 
     @javax.validation.constraints.NotNull
     @Column(name = "role_id", nullable = false)
-    private UUID roleId;
+    private Long roleId;
 
     @Override
     public boolean equals(Object o) {
@@ -34,19 +33,19 @@ public class UserRoleId implements Serializable {
         return Objects.hash(roleId, userId);
     }
 
-    public UUID getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(UUID userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
-    public UUID getRoleId() {
+    public Long getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(UUID roleId) {
+    public void setRoleId(Long roleId) {
         this.roleId = roleId;
     }
 }

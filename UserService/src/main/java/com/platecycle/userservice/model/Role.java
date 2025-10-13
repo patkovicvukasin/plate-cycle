@@ -4,15 +4,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.util.UUID;
-
 
 @Entity
 @Table(name = "roles")
 public class Role {
     @Id
     @Column(name = "id", nullable = false)
-    private UUID id;
+    private Long id;
 
     @javax.validation.constraints.Size(max = 50)
     @javax.validation.constraints.NotNull
@@ -23,11 +21,11 @@ public class Role {
     @Column(name = "description")
     private String description;
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

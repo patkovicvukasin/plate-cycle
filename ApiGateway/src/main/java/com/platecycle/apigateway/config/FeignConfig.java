@@ -20,4 +20,5 @@ public class FeignConfig {
     public Decoder feignDecoder() {
         return new SpringDecoder(() -> new HttpMessageConverters());
     }
+
 }

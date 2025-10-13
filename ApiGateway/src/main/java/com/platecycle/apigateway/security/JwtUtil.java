@@ -14,16 +14,13 @@ import java.util.Date;
 @Component
 public class JwtUtil {
 
-    // Fiksni tajni ključ – mora biti minimum 32 karaktera
     private static final String SECRET = "MyVerySecretKeyAtLeast32CharactersLong";
 
     private Key key;
-    // Token važi 24 sata
     private final long validityInMilliseconds = 86400000;
 
     @PostConstruct
     public void init() {
-        // Koristimo fiksni ključ iz SECRET
         key = Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8));
     }
 
@@ -51,8 +48,6 @@ public class JwtUtil {
             return false;
         }
     }
-
-
 
     public String getUsername(String token) {
         Claims claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();

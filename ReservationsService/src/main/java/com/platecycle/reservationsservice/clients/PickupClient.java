@@ -6,7 +6,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name = "PickupService")
+@FeignClient(name = "PICKUP-SERVICE")
 public interface PickupClient {
     @PostMapping("/api/pickup/deliveries")
     DeliveryResponse createDelivery(@RequestBody DeliveryRequest request);

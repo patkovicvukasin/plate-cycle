@@ -5,9 +5,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-// Ovaj Feign klijent poziva user servis koji radi na portu 8081
-@FeignClient(name = "UserService", url = "http://host.docker.internal:8081", configuration = FeignConfig.class)
-
+@FeignClient(name = "UserService", url = "http://localhost:8081", configuration = FeignConfig.class)
 public interface UserClient {
 
     @PostMapping(value = "/api/users/login", consumes = "application/json", produces = "application/json")
@@ -16,7 +14,6 @@ public interface UserClient {
     @PostMapping(value = "/api/users/register", consumes = "application/json", produces = "application/json")
     UserResponse register(@RequestBody RegisterRequest registerRequest);
 
-    // DTO za login – struktura mora odgovarati DTO-ju u user servisu
     class LoginRequest {
         private String username;
         private String password;
@@ -34,7 +31,6 @@ public interface UserClient {
         public void setPassword(String password) { this.password = password; }
     }
 
-    // DTO za registraciju – struktura mora odgovarati DTO-ju u user servisu
     class RegisterRequest {
         private String username;
         private String email;
@@ -59,7 +55,6 @@ public interface UserClient {
         public void setUserType(String userType) { this.userType = userType; }
     }
 
-    // DTO za odgovor – struktura mora odgovarati DTO-ju u user servisu
     class UserResponse {
         private String id;
         private String username;

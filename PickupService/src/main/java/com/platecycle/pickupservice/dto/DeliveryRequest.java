@@ -1,15 +1,13 @@
 package com.platecycle.pickupservice.dto;
 
-import java.util.UUID;
-
 public class DeliveryRequest {
-    private UUID reservationId;
-    private String deliveryCity; // Dodato polje
+    private Long reservationId;
+    private String deliveryCity;
 
-    public UUID getReservationId() {
+    public Long getReservationId() {
         return reservationId;
     }
-    public void setReservationId(UUID reservationId) {
+    public void setReservationId(Long reservationId) {
         this.reservationId = reservationId;
     }
 

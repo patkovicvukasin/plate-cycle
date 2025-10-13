@@ -25,10 +25,14 @@
         <module name="ApiGateway" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="config-repo-try" target="11" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="ApiGateway" options="" />
+      <module name="config-repo-try" options="" />
       <module name="config-server" options="" />
       <module name="naming-server" options="" />
       <module name="pickup-service" options="" />

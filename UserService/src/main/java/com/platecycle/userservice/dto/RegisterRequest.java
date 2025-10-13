@@ -18,11 +18,9 @@ public class RegisterRequest {
     private String firstName;
     private String lastName;
 
-    // Napomena: Za userType možeš ograničiti vrednosti – ovde očekujemo npr. "CUSTOMER"
     @NotBlank
     private String userType;
 
-    // Getteri i setteri
     public String getUsername() {
         return username;
     }

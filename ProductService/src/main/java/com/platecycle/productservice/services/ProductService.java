@@ -4,10 +4,8 @@ import com.platecycle.productservice.model.Product;
 import com.platecycle.productservice.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.time.Instant;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class ProductService {
@@ -16,16 +14,12 @@ public class ProductService {
     private ProductRepository productRepository;
 
     public Product createProduct(Product product) {
-        if (product.getId() == null) {
-            product.setId(UUID.randomUUID());
-        }
         product.setCreatedAt(Instant.now());
         product.setUpdatedAt(Instant.now());
         return productRepository.save(product);
     }
 
-
-    public Product getProduct(UUID productId) {
+    public Product getProduct(Long productId) {
         return productRepository.findById(productId)
                 .orElseThrow(() -> new RuntimeException("Product not found: " + productId));
     }
@@ -34,7 +28,7 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public Product updateProduct(UUID productId, Product updatedProduct) {
+    public Product updateProduct(Long productId, Product updatedProduct) {
         Product existing = productRepository.findById(productId)
                 .orElseThrow(() -> new RuntimeException("Product not found: " + productId));
 
@@ -50,13 +44,9 @@ public class ProductService {
         if (updatedProduct.getStatus() != null) {
             existing.setStatus(updatedProduct.getStatus());
         }
-        if (updatedProduct.getDeliveryOption() != null) {
-            existing.setDeliveryOption(updatedProduct.getDeliveryOption());
-        }
         if (updatedProduct.getExpirationDate() != null) {
             existing.setExpirationDate(updatedProduct.getExpirationDate());
         }
-        // Ažuriraj kategoriju ako je prosleđena (ova logika pretpostavlja da je u JSON-u unet ceo objekat kategorije)
         if (updatedProduct.getCategory() != null) {
             existing.setCategory(updatedProduct.getCategory());
         }
@@ -64,14 +54,12 @@ public class ProductService {
         return productRepository.save(existing);
     }
 
-
-
-    public void deleteProduct(UUID productId) {
+    public void deleteProduct(Long productId) {
         productRepository.deleteById(productId);
     }
 
-    public void reduceQuantity(UUID productId, int amount) {
-        Product product = getProduct(productId); // koristi već implementiranu metodu getProduct
+    public void reduceQuantity(Long productId, int amount) {
+        Product product = getProduct(productId);
         if (product.getQuantity() < amount) {
             throw new RuntimeException("Insufficient product quantity. Available: " + product.getQuantity());
         }
@@ -79,5 +67,4 @@ public class ProductService {
         product.setUpdatedAt(Instant.now());
         productRepository.save(product);
     }
-
 }

@@ -7,13 +7,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.UUID;
-
-@FeignClient(name = "ProductService")
+@FeignClient(name = "product-service")
 public interface ProductClient {
     @GetMapping("/api/products/{id}")
-    ProductDTO getProductById(@PathVariable("id") UUID id);
+    ProductDTO getProductById(@PathVariable("id") Long id);
 
     @PutMapping("/api/products/{id}/reduce-quantity")
-    void reduceQuantity(@PathVariable("id") UUID id, @RequestParam("amount") Integer amount);
+    void reduceQuantity(@PathVariable("id") Long id, @RequestParam("amount") Integer amount);
 }

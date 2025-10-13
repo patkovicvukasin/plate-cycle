@@ -17,7 +17,6 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeExchange(exchange -> exchange
-                        // Dozvoli sve zahteve ka /auth/**
                         .pathMatchers("/auth/**").permitAll()
                         .anyExchange().authenticated()
                 )

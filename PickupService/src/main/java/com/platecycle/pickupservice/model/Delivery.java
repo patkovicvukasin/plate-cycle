@@ -1,25 +1,22 @@
 package com.platecycle.pickupservice.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.Instant;
-import java.util.UUID;
 
 @Entity
 @Table(name = "deliveries")
 public class Delivery {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private UUID id;
+    private Long id;
 
     @NotNull
     @Column(name = "reservation_id", nullable = false)
-    private UUID reservationId;
+    private Long reservationId;
 
     // Polje za naziv dostavne kompanije – ovo može biti default vrednost
     @Size(max = 100)
@@ -35,19 +32,8 @@ public class Delivery {
 
     @Size(max = 20)
     @NotNull
-    @Column(name = "pickup_method", nullable = false, length = 20)
-    private String pickupMethod;
-
-    @Size(max = 20)
-    @NotNull
     @Column(name = "status", nullable = false, length = 20)
     private String status;
-
-    @Column(name = "scheduled_pickup_time")
-    private Instant scheduledPickupTime;
-
-    @Column(name = "delivered_time")
-    private Instant deliveredTime;
 
     @NotNull
     @Column(name = "created_at", nullable = false)
@@ -57,19 +43,18 @@ public class Delivery {
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
 
-    // Getteri i Setteri
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public UUID getReservationId() {
+    public Long getReservationId() {
         return reservationId;
     }
-    public void setReservationId(UUID reservationId) {
+    public void setReservationId(Long reservationId) {
         this.reservationId = reservationId;
     }
 
@@ -87,32 +72,11 @@ public class Delivery {
         this.deliveryCity = deliveryCity;
     }
 
-    public String getPickupMethod() {
-        return pickupMethod;
-    }
-    public void setPickupMethod(String pickupMethod) {
-        this.pickupMethod = pickupMethod;
-    }
-
     public String getStatus() {
         return status;
     }
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public Instant getScheduledPickupTime() {
-        return scheduledPickupTime;
-    }
-    public void setScheduledPickupTime(Instant scheduledPickupTime) {
-        this.scheduledPickupTime = scheduledPickupTime;
-    }
-
-    public Instant getDeliveredTime() {
-        return deliveredTime;
-    }
-    public void setDeliveredTime(Instant deliveredTime) {
-        this.deliveredTime = deliveredTime;
     }
 
     public Instant getCreatedAt() {

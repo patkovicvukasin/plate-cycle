@@ -7,12 +7,10 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <!-- Prebacujemo se da inherits from platecycle-parent -->
     <parent>
         <groupId>com.platecycle</groupId>
         <artifactId>platecycle-parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <!-- prilagodi putanju do ../pom.xml ako je drugačija struktura -->
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -22,35 +20,27 @@
     <name>ReservationsService</name>
     <description>ReservationsService</description>
 
-    <!-- Child modul ne definiše spring-cloud.version ni dependencyManagement,
-         to sve dolazi iz platecycle-parent -->
-
     <dependencies>
-        <!-- JPA -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
-        <!-- Web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!-- Eureka Client -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
 
-        <!-- Feign -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
 
-        <!-- DevTools -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
@@ -58,14 +48,17 @@
             <optional>true</optional>
         </dependency>
 
-        <!-- PostgreSQL -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-config</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
         </dependency>
 
-        <!-- Test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -77,17 +70,13 @@
         </dependency>
     </dependencies>
 
-    <!-- Child modul nema <dependencyManagement>, to se rešava u parentu -->
-
     <build>
         <plugins>
-            <!-- Kompajler plugin (za Lombok) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
             </plugin>
 
-            <!-- Spring Boot Maven plugin -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

@@ -7,7 +7,10 @@ import com.platecycle.apigateway.clients.UserClient.UserResponse;
 import com.platecycle.apigateway.security.JwtUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/auth")
@@ -24,17 +27,15 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
         try {
-            // Prosleđujemo zahtev user servisu za login
             UserResponse response = userClient.login(loginRequest);
             if (response != null && response.getUsername() != null) {
-                // Ako je login uspešan, generišemo JWT token
                 String token = jwtUtil.generateToken(response.getUsername());
                 return ResponseEntity.ok(new JwtResponse(token));
             } else {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Neispravni kredencijali");
             }
         } catch (Exception e) {
-            e.printStackTrace(); // ili log.error("Login error", e);
+            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Neispravni kredencijali");
         }
 
@@ -43,10 +44,8 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequest registerRequest) {
         try {
-            // Prosleđujemo zahtev user servisu za registraciju
             UserResponse response = userClient.register(registerRequest);
             if (response != null && response.getUsername() != null) {
-                // Nakon uspešne registracije, generišemo JWT token
                 String token = jwtUtil.generateToken(response.getUsername());
                 return ResponseEntity.status(HttpStatus.CREATED).body(new JwtResponse(token));
             } else {
@@ -57,7 +56,6 @@ public class AuthController {
         }
     }
 
-    // DTO klasa za odgovor sa tokenom
     static class JwtResponse {
         private String token;
 

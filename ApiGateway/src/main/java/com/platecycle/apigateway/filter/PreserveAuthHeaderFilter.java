@@ -13,15 +13,12 @@ public class PreserveAuthHeaderFilter implements GlobalFilter, Ordered {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        // Možeš ovde proveriti i eventualno logovati Authorization header,
-        // ali ovde samo prosleđujemo zahtev dalje ne menjajući zaglavlja.
         ServerHttpRequest request = exchange.getRequest();
         return chain.filter(exchange);
     }
 
     @Override
     public int getOrder() {
-        // Ovo određuje redosled izvršavanja filtera
-        return -1; // Visoki prioritet (niži broj znači viši prioritet)
+        return -1;
     }
 }

@@ -1,28 +1,26 @@
 package com.platecycle.reservationsservice.dto;
 
 import java.time.Instant;
-import java.util.UUID;
 
 public class DeliveryResponse {
-    private UUID id;
-    private UUID reservationId;
+    private Long id;
+    private Long reservationId;
     private String status;
     private String deliveryCompany;
     private String deliveryCity;
     private Instant createdAt;
     private Instant updatedAt;
 
-    // Getteri i Setteri
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
-    public UUID getReservationId() {
+    public Long getReservationId() {
         return reservationId;
     }
-    public void setReservationId(UUID reservationId) {
+    public void setReservationId(Long reservationId) {
         this.reservationId = reservationId;
     }
     public String getStatus() {

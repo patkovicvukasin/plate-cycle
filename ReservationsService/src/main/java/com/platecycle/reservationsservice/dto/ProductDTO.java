@@ -1,24 +1,23 @@
 package com.platecycle.reservationsservice.dto;
 
 import java.time.Instant;
-import java.util.UUID;
 
 public class ProductDTO {
 
-    private UUID id;
+    private Long id;
     private String title;
     private String description;
     private Integer quantity;
     private String status;
     private Instant expirationDate;
-    private String city; // dodato polje za grad
+    private String city;
+    private boolean deliveryIncluded;
 
-    // Getteri i Setteri
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -62,5 +61,13 @@ public class ProductDTO {
     }
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public boolean isDeliveryIncluded() {
+        return deliveryIncluded;
+    }
+
+    public void setDeliveryIncluded(boolean deliveryIncluded) {
+        this.deliveryIncluded = deliveryIncluded;
     }
 }

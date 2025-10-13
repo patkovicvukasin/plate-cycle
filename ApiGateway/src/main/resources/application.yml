@@ -15,7 +15,7 @@ spring:
         - id: product-service
           uri: lb://product-service
           predicates:
-            - Path=/api/products/**
+            - Path=/api/products/**, /api/categories/**
         - id: user-service
           uri: lb://user-service
           predicates:
@@ -32,7 +32,10 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://naming-server:8761/eureka
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    hostname: localhost
+    prefer-ip-address: false
 
 feign:
   client:

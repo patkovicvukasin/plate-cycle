@@ -25,8 +25,8 @@ services:
     environment:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://naming-server:8761/eureka"
       SPRING_DATASOURCE_URL: "jdbc:postgresql://host.docker.internal:5432/user_db"
-      SPRING_DATASOURCE_USERNAME:
-      SPRING_DATASOURCE_PASSWORD:
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
     depends_on:
       - naming-server
     restart: on-failure
@@ -43,8 +43,8 @@ services:
     environment:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://naming-server:8761/eureka"
       SPRING_DATASOURCE_URL: "jdbc:postgresql://host.docker.internal:5432/product_db"
-      SPRING_DATASOURCE_USERNAME:
-      SPRING_DATASOURCE_PASSWORD:
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
     depends_on:
       - naming-server
     restart: on-failure
@@ -61,8 +61,8 @@ services:
     environment:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://naming-server:8761/eureka"
       SPRING_DATASOURCE_URL: "jdbc:postgresql://host.docker.internal:5432/reservations_db"
-      SPRING_DATASOURCE_USERNAME:
-      SPRING_DATASOURCE_PASSWORD:
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
     depends_on:
       - naming-server
     restart: on-failure
@@ -79,8 +79,8 @@ services:
     environment:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://naming-server:8761/eureka"
       SPRING_DATASOURCE_URL: "jdbc:postgresql://host.docker.internal:5432/pickup_db"
-      SPRING_DATASOURCE_USERNAME:
-      SPRING_DATASOURCE_PASSWORD:
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
     depends_on:
       - naming-server
     restart: on-failure

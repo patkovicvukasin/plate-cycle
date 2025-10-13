@@ -2,25 +2,32 @@ package com.platecycle.reservationsservice.dto;
 
 import com.platecycle.reservationsservice.model.PickupOption;
 
-import java.util.UUID;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 public class ReservationRequest {
-    private UUID productId;
-    private UUID recipientId;
-    private int quantityRequested; // koliko jedinica proizvoda se rezerviše
-    private PickupOption pickupOption;  // npr. "SELF_DELIVERY" ili "DELIVERY"
+    @NotNull
+    private Long productId;
 
-    // Getteri i setteri
-    public UUID getProductId() {
+    @NotNull
+    private Long recipientId;
+
+    @Min(1)
+    private int quantityRequested;
+
+    @NotNull
+    private PickupOption pickupOption;
+
+    public Long getProductId() {
         return productId;
     }
-    public void setProductId(UUID productId) {
+    public void setProductId(Long productId) {
         this.productId = productId;
     }
-    public UUID getRecipientId() {
+    public Long getRecipientId() {
         return recipientId;
     }
-    public void setRecipientId(UUID recipientId) {
+    public void setRecipientId(Long recipientId) {
         this.recipientId = recipientId;
     }
     public int getQuantityRequested() {

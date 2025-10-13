@@ -17,37 +17,31 @@
     <description>API Gateway module for PlateCycle project</description>
 
     <dependencies>
-        <!-- Koristi reaktivni web starter, ne servlet-based -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
 
-        <!-- Eureka Client za service discovery -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
 
-        <!-- Spring Security (reaktivna verzija dolazi uz WebFlux) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
-        <!-- Spring Cloud Gateway (umesto Zuul-a) -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-gateway</artifactId>
         </dependency>
 
-        <!-- OpenFeign za pozivanje mikroservisa ako je potrebno -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
 
-        <!-- JWT zavisnosti – verzije se nasleđuju iz parent pom.xml -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-api</artifactId>
@@ -63,7 +57,6 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- Test zavisnosti -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>

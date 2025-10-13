@@ -4,7 +4,6 @@
                              https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <!-- Ovo kaže: "Nasledi sve iz platecycle-parent" -->
     <parent>
         <groupId>com.platecycle</groupId>
         <artifactId>platecycle-parent</artifactId>
@@ -18,25 +17,17 @@
     <name>NamingServer</name>
     <description>NamingServer</description>
 
-    <!-- (Ako želiš overridovati Java verziju, unesi ovde <properties> ...
-         Inače se koristi ona iz parenta, npr. 21.)
-    -->
-
     <dependencies>
-        <!-- Eureka Server -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
         </dependency>
 
-
-        <!-- Spring Web (ako ti treba) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!-- Test (opciono) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -44,14 +35,8 @@
         </dependency>
     </dependencies>
 
-    <!-- Možeš obrisati <dependencyManagement> ovde, jer je ono u parentu -->
-    <!-- <dependencyManagement> ... </dependencyManagement> -->
-
     <build>
         <plugins>
-            <!-- spring-boot-maven-plugin obično dolazi iz parenta,
-                 ali ovde je OK da stoji,
-                 IntelliJ ga može generisati automatski. -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
